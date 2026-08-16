@@ -18,8 +18,9 @@ jobs:
           node --check app.js
           node --check review-app.js
           node --check review-listening.js
-          for f in vg-*.js reading-*.js; do node --check "$f"; done
-      - name: Verify review source data
+          node --check explanation-runtime.js
+          for f in vg-*.js reading-*.js vg-explanations-*.js; do node --check "$f"; done
+      - name: Verify review source data and explanations
         run: |
           node <<'NODE'
           const fs=require('fs'),vm=require('vm');
@@ -28,11 +29,14 @@ jobs:
           ['vg-init.js','vg-mcq-1.js','vg-mcq-2.js','vg-mcq-3.js','vg-mcq-4.js','vg-mcq-5.js','vg-mcq-6.js','vg-mcq-7.js','vg-mcq-8.js','vg-cloze-1.js','vg-cloze-2.js','vg-cloze-3.js'].forEach(load);
           ['reading-init.js','reading-1.js','reading-2.js','reading-3.js'].forEach(load);
           load('review-listening.js');
+          ['vg-explanations-1.js','vg-explanations-2.js','vg-explanations-3.js','vg-explanations-4.js'].forEach(load);
           if(VG_REVIEW.mcq.length!==200) throw new Error(`Expected 200 Grammar/Vocabulary questions, got ${VG_REVIEW.mcq.length}`);
           if(VG_REVIEW.cloze.length!==5) throw new Error(`Expected 5 Cloze texts, got ${VG_REVIEW.cloze.length}`);
           if(READING_REVIEW.length!==6 || READING_REVIEW.some(x=>x.questions.length!==5)) throw new Error('Reading source count mismatch');
           if(LISTENING_REVIEW.length!==8 || LISTENING_REVIEW.some(x=>x.part1.length!==7 || x.part3.length!==6)) throw new Error('Listening source count mismatch');
-          console.log('Source counts OK:',VG_REVIEW.mcq.length,VG_REVIEW.cloze.length,READING_REVIEW.length,LISTENING_REVIEW.length);
+          if(Object.keys(VG_EXPLANATIONS||{}).length!==200) throw new Error(`Expected 200 individual Grammar/Vocabulary explanations, got ${Object.keys(VG_EXPLANATIONS||{}).length}`);
+          for(const q of VG_REVIEW.mcq){if(!VG_EXPLANATIONS[String(q.id)]) throw new Error(`Missing explanation for Grammar/Vocabulary question ${q.id}`);}
+          console.log('Source and explanation counts OK:',VG_REVIEW.mcq.length,Object.keys(VG_EXPLANATIONS).length,VG_REVIEW.cloze.length,READING_REVIEW.length,LISTENING_REVIEW.length);
           NODE
       - name: Verify required site files
         run: |
@@ -43,3 +47,8 @@ jobs:
           test -s theory.js
           test -s app.js
           test -s review-app.js
+          test -s explanation-runtime.js
+          test -s vg-explanations-1.js
+          test -s vg-explanations-2.js
+          test -s vg-explanations-3.js
+          test -s vg-explanations-4.js
