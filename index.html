@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#c6281f">
-<meta name="description" content="VLU Entrance Exam practice: two source-matched tests, detailed Vietnamese theory and interactive practice.">
+<meta name="description" content="VLU Entrance Exam practice with detailed review and two source-matched tests.">
 <title>VLU Entrance Exam Lab</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -12,68 +12,54 @@
 <header class="hero">
   <div class="wrap">
     <div class="topbar">
-      <div class="brand"><div class="logo">VLU</div><div><h1>Entrance Exam Lab</h1><small>Ôn tập tiếng Anh đầu vào · học theo đúng dạng đề</small></div></div>
+      <div class="brand"><div class="logo">VLU</div><div><h1>Entrance Exam Lab</h1><small>Ôn tập tiếng Anh đầu vào</small></div></div>
     </div>
     <div class="hero-body">
-      <div><h2>Học lý thuyết rõ.<br>Luyện đề thật chắc.</h2><p>Hai đề luyện được ghép đúng nguồn câu hỏi và đáp án, kèm giải thích tiếng Việt, chuyên đề ngữ pháp–đọc hiểu chi tiết và bài tập tương tác để tự ôn từng điểm kiến thức.</p></div>
+      <div><h2>Review kỹ.<br>Làm test chắc.</h2><p>Hệ thống ôn tập lý thuyết và luyện đề tiếng Anh đầu vào theo nguồn đã cung cấp.</p></div>
       <div class="illustration" aria-hidden="true"><div class="blob"></div><div class="book"></div><div class="pencil"></div><div class="spark s1">✨</div><div class="spark s2">📚</div><div class="spark s3">💡</div></div>
     </div>
   </div>
 </header>
 <main class="wrap">
   <nav class="mainnav" aria-label="Điều hướng chính">
-    <button class="active" data-page="tests">📝 Bài test</button>
-    <button data-page="theory">📚 Lý thuyết & luyện tập</button>
-    <button data-page="answers">✅ Đáp án tổng hợp</button>
+    <button class="active" data-view="theory">📚 Theory Review</button>
+    <button data-view="test1">📝 Test 1</button>
+    <button data-view="test2">📝 Test 2</button>
   </nav>
-  <div class="notice"><b>📌 Cách dùng:</b> Chọn Test 1 hoặc Test 2 để làm như thi thật. Sau khi nộp, hệ thống mở đáp án và giải thích tiếng Việt. Phần lý thuyết được xây từ các điểm kiến thức xuất hiện trong hai đề; mỗi tab có subtab <b>Lý thuyết</b> và <b>30 câu trắc nghiệm</b>.</div>
 
-  <section class="page active" id="testsPage">
-    <div class="section-head"><div><h3>Bài test mô phỏng</h3><p>Nội dung đề và key được tách theo từng nguồn để tránh trộn passage hoặc đáp án.</p></div><span class="source-chip">🔗 Source-matched</span></div>
-    <div class="test-picker">
-      <button class="test-card active" data-test="test1"><strong>🧡 Test 1</strong><span>Đề 4 phần: pronunciation, grammar, reading, fill-in, sentence transformation và long answer. Key dùng đúng bộ Expected Answer bạn cung cấp.</span></button>
-      <button class="test-card" data-test="test2"><strong>❤️ Test 2</strong><span>Đề 3 phần: reading MCQ, short answer, long answer. Passage từ PDF 01.08.2026 và đáp án từ Markdown cùng project Studocu.</span></button>
-    </div>
-    <div id="examArea">
-      <div class="section-head"><div><h3 id="examTitle"></h3><p id="examSubtitle"></p></div><button class="smallbtn" id="resetExam">↻ Làm lại bài</button></div>
-      <div class="notice" id="sourceNote"></div>
-      <div class="result" id="resultBox"></div>
-      <div class="exam-shell">
-        <aside class="sidecard">
-          <div class="timer"><span>⏱ Thời gian</span><strong id="timerText">00:00</strong></div>
-          <button class="smallbtn" id="timerReset" style="width:100%;margin-bottom:11px">Khởi động lại đồng hồ</button>
-          <div class="palette" id="palette"></div>
-          <div class="legend"><span><i style="background:#ecfdf3"></i>Đã làm</span><span><i style="background:#facc15"></i>Đánh dấu</span></div>
-        </aside>
-        <section class="examcard">
-          <div class="examtop"><div class="segments" id="sectionSegments"></div><button class="submit" id="submitExam">Nộp bài & xem giải thích</button></div>
-          <div id="questions"></div>
-        </section>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="theoryPage">
-    <div class="section-head"><div><h3>Khung lý thuyết ôn tập</h3><p>Giải thích bằng tiếng Việt, ví dụ minh họa, ngoại lệ, lỗi hay gặp và bài tập theo từng chuyên đề.</p></div><span class="source-chip">📘 Mỗi tab · 30 MCQ</span></div>
+  <section class="page active" id="theoryPage">
+    <div class="section-head"><h3>Khung lý thuyết ôn tập</h3></div>
     <div class="theory-layout">
       <aside class="theorynav" id="theoryNav"></aside>
       <section class="theorycard">
-        <div class="topic-head"><div><h4 id="topicTitle"></h4><p style="color:#7b6257;font-size:12px;margin:5px 0 0">Học quy tắc → xem ngoại lệ → làm bài tập → kiểm tra đáp án.</p></div><span class="topic-badge" id="topicBadge"></span></div>
+        <div class="topic-head"><h4 id="topicTitle"></h4><span class="topic-badge" id="topicBadge"></span></div>
         <div class="subtabs"><button class="active" data-sub="theorySub">📖 Lý thuyết</button><button data-sub="practiceSub">🎯 Bài tập thực hành</button></div>
         <div class="subpanel active" id="theorySub"><div class="theorybox" id="theoryContent"></div></div>
         <div class="subpanel" id="practiceSub">
-          <div class="practice-toolbar"><b id="practiceCount">30 câu trắc nghiệm</b><div class="progressline"><i id="practiceFill"></i></div><button class="smallbtn" id="checkPractice">Chấm 30 câu</button><button class="smallbtn" id="resetPractice">Làm lại</button></div>
+          <div class="practice-toolbar"><b id="practiceCount">30 câu trắc nghiệm</b><div class="progressline"><i id="practiceFill"></i></div><button class="smallbtn" id="checkPractice">Chấm bài</button><button class="smallbtn" id="resetPractice">Làm lại</button></div>
           <div id="practiceList"></div>
         </div>
       </section>
     </div>
   </section>
 
-  <section class="page" id="answersPage">
-    <div class="section-head"><div><h3>Đáp án tổng hợp</h3><p>Xem nhanh key và giải thích tiếng Việt sau khi đã luyện đề.</p></div><div><button class="smallbtn" id="answerTest1">Test 1</button> <button class="smallbtn" id="answerTest2">Test 2</button></div></div>
-    <section class="answercard"><h4 id="answerTestName" style="font:900 22px Nunito;margin:0 0 14px;color:#9a3412"></h4><div style="overflow:auto"><table class="answer-table"><thead><tr><th>Câu</th><th>Key</th><th>Đáp án / Model</th><th>Giải thích tiếng Việt</th></tr></thead><tbody id="answerTableBody"></tbody></table></div></section>
+  <section class="page" id="testsPage">
+    <div id="examArea">
+      <div class="section-head"><h3 id="examTitle"></h3><button class="smallbtn" id="resetExam">↻ Làm lại bài</button></div>
+      <div class="result" id="resultBox"></div>
+      <div class="exam-shell">
+        <aside class="sidecard">
+          <div class="timer"><span>⏱ Thời gian</span><strong id="timerText">00:00</strong></div>
+          <button class="smallbtn timer-reset" id="timerReset">Khởi động lại đồng hồ</button>
+          <div class="palette" id="palette"></div>
+        </aside>
+        <section class="examcard">
+          <div class="examtop"><div class="segments" id="sectionSegments"></div><button class="submit" id="submitExam">Nộp bài</button></div>
+          <div id="questions"></div>
+        </section>
+      </div>
+    </div>
   </section>
-  <div class="footer">VLU Entrance Exam Lab · Tài liệu luyện tập dựa trên các nguồn người dùng cung cấp · Không phải website chính thức của Văn Lang University.</div>
 </main>
 <script src="tests.js"></script>
 <script src="theory.js"></script>
