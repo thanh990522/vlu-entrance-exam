@@ -16,10 +16,30 @@ jobs:
           node --check tests.js
           node --check theory.js
           node --check app.js
+          node --check review-app.js
+          node --check review-listening.js
+          for f in vg-*.js reading-*.js; do node --check "$f"; done
+      - name: Verify review source data
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          global.window=global;
+          const load=f=>vm.runInThisContext(fs.readFileSync(f,'utf8'),{filename:f});
+          ['vg-init.js','vg-mcq-1.js','vg-mcq-2.js','vg-mcq-3.js','vg-mcq-4.js','vg-mcq-5.js','vg-mcq-6.js','vg-mcq-7.js','vg-mcq-8.js','vg-cloze-1.js','vg-cloze-2.js','vg-cloze-3.js'].forEach(load);
+          ['reading-init.js','reading-1.js','reading-2.js','reading-3.js'].forEach(load);
+          load('review-listening.js');
+          if(VG_REVIEW.mcq.length!==200) throw new Error(`Expected 200 Grammar/Vocabulary questions, got ${VG_REVIEW.mcq.length}`);
+          if(VG_REVIEW.cloze.length!==5) throw new Error(`Expected 5 Cloze texts, got ${VG_REVIEW.cloze.length}`);
+          if(READING_REVIEW.length!==6 || READING_REVIEW.some(x=>x.questions.length!==5)) throw new Error('Reading source count mismatch');
+          if(LISTENING_REVIEW.length!==8 || LISTENING_REVIEW.some(x=>x.part1.length!==7 || x.part3.length!==6)) throw new Error('Listening source count mismatch');
+          console.log('Source counts OK:',VG_REVIEW.mcq.length,VG_REVIEW.cloze.length,READING_REVIEW.length,LISTENING_REVIEW.length);
+          NODE
       - name: Verify required site files
         run: |
           test -s index.html
           test -s styles.css
+          test -s review.css
           test -s tests.js
           test -s theory.js
           test -s app.js
+          test -s review-app.js
