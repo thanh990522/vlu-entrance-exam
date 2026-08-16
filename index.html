@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#c6281f">
-<meta name="description" content="VLU Entrance Exam practice with detailed review and two source-matched tests.">
+<meta name="description" content="VLU Entrance Exam practice with vocabulary-grammar, reading, listening, theory review and source-matched tests.">
 <title>VLU Entrance Exam Lab</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="review.css">
 </head>
 <body>
 <header class="hero">
@@ -22,12 +23,39 @@
 </header>
 <main class="wrap">
   <nav class="mainnav" aria-label="Điều hướng chính">
-    <button class="active" data-view="theory">📚 Theory Review</button>
+    <button class="active" data-view="vg">🧩 Từ vựng - Ngữ pháp</button>
+    <button data-view="reading">📖 Đọc hiểu</button>
+    <button data-view="listening">🎧 Nghe hiểu</button>
+    <button data-view="theory">📚 Theory Review</button>
     <button data-view="test1">📝 Test 1</button>
     <button data-view="test2">📝 Test 2</button>
   </nav>
 
-  <section class="page active" id="theoryPage">
+  <section class="page active review-page" id="vgPage">
+    <div class="section-head"><h3>Từ vựng - Ngữ pháp</h3></div>
+    <div class="review-shell">
+      <div class="review-tabs" id="vgTabs"></div>
+      <div id="vgContent"></div>
+    </div>
+  </section>
+
+  <section class="page review-page" id="readingReviewPage">
+    <div class="section-head"><h3>Đọc hiểu</h3></div>
+    <div class="review-shell">
+      <div class="review-tabs" id="readingTabs"></div>
+      <div id="readingReviewContent"></div>
+    </div>
+  </section>
+
+  <section class="page review-page" id="listeningPage">
+    <div class="section-head"><h3>Nghe hiểu</h3></div>
+    <div class="review-shell">
+      <div class="review-tabs" id="listeningTabs"></div>
+      <div id="listeningContent"></div>
+    </div>
+  </section>
+
+  <section class="page" id="theoryPage">
     <div class="section-head"><h3>Khung lý thuyết ôn tập</h3></div>
     <div class="theory-layout">
       <aside class="theorynav" id="theoryNav"></aside>
@@ -63,6 +91,24 @@
 </main>
 <script src="tests.js"></script>
 <script src="theory.js"></script>
+<script src="vg-init.js"></script>
+<script src="vg-mcq-1.js"></script>
+<script src="vg-mcq-2.js"></script>
+<script src="vg-mcq-3.js"></script>
+<script src="vg-mcq-4.js"></script>
+<script src="vg-mcq-5.js"></script>
+<script src="vg-mcq-6.js"></script>
+<script src="vg-mcq-7.js"></script>
+<script src="vg-mcq-8.js"></script>
+<script src="vg-cloze-1.js"></script>
+<script src="vg-cloze-2.js"></script>
+<script src="vg-cloze-3.js"></script>
+<script src="reading-init.js"></script>
+<script src="reading-1.js"></script>
+<script src="reading-2.js"></script>
+<script src="reading-3.js"></script>
+<script src="review-listening.js"></script>
 <script src="app.js"></script>
+<script src="review-app.js"></script>
 </body>
 </html>
