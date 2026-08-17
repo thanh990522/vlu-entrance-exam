@@ -1,36 +1,79 @@
-/* Larger typography for Test 1 and Test 2 */
-#testsPage{font-size:18px}
-#testsPage .section-head h3{font-size:34px}
-#testsPage .smallbtn{font-size:14px;padding:11px 14px}
-#testsPage .timer{font-size:15px;padding:13px 14px}
-#testsPage .timer strong{font-size:23px}
-#testsPage .qdot{font-size:13px;height:40px}
-#testsPage .segments button{font-size:13px;padding:10px 13px}
-#testsPage .submit{font-size:15px;padding:12px 19px}
-#testsPage .qnum{font-size:20px}
-#testsPage .marks{font-size:12px;padding:6px 10px}
-#testsPage .flag{font-size:22px}
-#testsPage .stem{font-size:18px;line-height:1.8;margin:12px 0 14px}
-#testsPage .option{font-size:17px;line-height:1.7;padding:13px 15px;gap:11px}
-#testsPage .option input{margin-top:5px;transform:scale(1.18)}
-#testsPage .textanswer{font-size:17px;line-height:1.65;padding:13px 14px}
-#testsPage textarea.textanswer{min-height:135px}
-#testsPage .feedback{font-size:16px;line-height:1.75;padding:14px 16px}
-#testsPage .model{font-size:16px;line-height:1.75;padding:12px 14px}
-#testsPage .result span{font-size:12px}
-#testsPage .result strong{font-size:26px}
-#testsPage .passage{font-size:17px;line-height:1.9;padding:20px 21px}
-#testsPage .passage h5{font-size:23px;margin-bottom:12px}
-#testsPage .reading-questions .question{font-size:17px}
-#testsPage .reading-questions{font-size:17px}
-#testsPage .question{padding:22px 0}
+/* 24px typography for all Test 1 and Test 2 text */
+#testsPage{font-size:24px}
+#testsPage .section-head h3{font-size:36px}
+#testsPage .smallbtn,
+#testsPage .timer,
+#testsPage .timer strong,
+#testsPage .qdot,
+#testsPage .segments button,
+#testsPage .submit,
+#testsPage .qnum,
+#testsPage .marks,
+#testsPage .stem,
+#testsPage .option,
+#testsPage .textanswer,
+#testsPage .feedback,
+#testsPage .model,
+#testsPage .result span,
+#testsPage .result strong,
+#testsPage .passage,
+#testsPage .reading-questions,
+#testsPage .reading-questions .question,
+#testsPage button,
+#testsPage input,
+#testsPage textarea,
+#testsPage label,
+#testsPage p,
+#testsPage span,
+#testsPage strong,
+#testsPage b{font-size:24px}
+
+#testsPage .stem{line-height:1.75;margin:14px 0 16px}
+#testsPage .option{line-height:1.65;padding:15px 17px;gap:12px}
+#testsPage .option input{margin-top:7px;transform:scale(1.35)}
+#testsPage .textanswer{line-height:1.6;padding:15px 16px}
+#testsPage textarea.textanswer{min-height:160px}
+#testsPage .feedback{line-height:1.7;padding:16px 18px}
+#testsPage .model{line-height:1.7;padding:14px 16px}
+#testsPage .passage{line-height:1.85;padding:22px 23px}
+#testsPage .passage h5{font-size:30px;margin-bottom:13px}
+#testsPage .question{padding:24px 0}
+#testsPage .qdot{height:52px;min-width:44px}
+#testsPage .segments button{padding:12px 15px}
+#testsPage .smallbtn{padding:12px 15px}
+#testsPage .submit{padding:13px 20px}
+#testsPage .timer{padding:14px 15px}
+#testsPage .marks{padding:7px 10px}
 
 @media(max-width:650px){
-  #testsPage{font-size:17px}
-  #testsPage .section-head h3{font-size:29px}
-  #testsPage .stem{font-size:17px}
-  #testsPage .option{font-size:16px}
-  #testsPage .passage{font-size:16px;line-height:1.82}
-  #testsPage .feedback,#testsPage .model{font-size:15px}
-  #testsPage .qdot{font-size:12px;height:38px}
+  #testsPage,
+  #testsPage .smallbtn,
+  #testsPage .timer,
+  #testsPage .timer strong,
+  #testsPage .qdot,
+  #testsPage .segments button,
+  #testsPage .submit,
+  #testsPage .qnum,
+  #testsPage .marks,
+  #testsPage .stem,
+  #testsPage .option,
+  #testsPage .textanswer,
+  #testsPage .feedback,
+  #testsPage .model,
+  #testsPage .result span,
+  #testsPage .result strong,
+  #testsPage .passage,
+  #testsPage .reading-questions,
+  #testsPage .reading-questions .question,
+  #testsPage button,
+  #testsPage input,
+  #testsPage textarea,
+  #testsPage label,
+  #testsPage p,
+  #testsPage span,
+  #testsPage strong,
+  #testsPage b{font-size:24px}
+  #testsPage .section-head h3{font-size:34px}
+  #testsPage .passage h5{font-size:30px}
+  #testsPage .qdot{height:50px;min-width:44px}
 }
