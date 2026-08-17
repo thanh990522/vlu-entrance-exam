@@ -19,6 +19,7 @@ jobs:
           node --check review-app.js
           node --check review-listening.js
           node --check explanation-runtime.js
+          node --check listening-direct.js
           for f in vg-*.js reading-*.js vg-explanations-*.js; do node --check "$f"; done
       - name: Verify review source data and explanations
         run: |
@@ -38,6 +39,24 @@ jobs:
           for(const q of VG_REVIEW.mcq){if(!VG_EXPLANATIONS[String(q.id)]) throw new Error(`Missing explanation for Grammar/Vocabulary question ${q.id}`);}
           console.log('Source and explanation counts OK:',VG_REVIEW.mcq.length,Object.keys(VG_EXPLANATIONS).length,VG_REVIEW.cloze.length,READING_REVIEW.length,LISTENING_REVIEW.length);
           NODE
+      - name: Verify direct listening audio
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d audio/listening
+          test "$(find audio/listening -maxdepth 1 -type f -name '*.mp3' | wc -l)" -eq 16
+          test "$(find audio/listening -maxdepth 1 -type f -name '*.mp3' -size +100k | wc -l)" -eq 16
+          tracks=(
+            'Track 01 TEST 1 Part 1.mp3' 'Track 03 TEST 1 Part 3.mp3'
+            'Track 09 TEST 2 Part 1.mp3' 'Track 11 TEST 2 Part 3.mp3'
+            'Track 17 TEST 3 Part 1.mp3' 'Track 19 TEST 3 Part 3.mp3'
+            'Track 25 TEST 4 Part 1.mp3' 'Track 27 TEST 4 Part 3.mp3'
+            'Track 33 TEST 5 Part 1.mp3' 'Track 35 TEST 5 Part 3.mp3'
+            'Track 41 TEST 6 Part 1.mp3' 'Track 43 TEST 6 Part 3.mp3'
+            'Track 49 TEST 7 Part 1.mp3' 'Track 51 TEST 7 Part 3.mp3'
+            'Track 57 TEST 8 Part 1.mp3' 'Track 59 TEST 8 Part 3.mp3'
+          )
+          for f in "${tracks[@]}"; do test -s "audio/listening/$f"; done
       - name: Verify required site files
         run: |
           test -s index.html
@@ -48,6 +67,7 @@ jobs:
           test -s app.js
           test -s review-app.js
           test -s explanation-runtime.js
+          test -s listening-direct.js
           test -s vg-explanations-1.js
           test -s vg-explanations-2.js
           test -s vg-explanations-3.js
