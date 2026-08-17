@@ -1,0 +1,49 @@
+name: Sync listening audio
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-listening-audio.yml'
+permissions:
+  contents: write
+jobs:
+  sync-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download source-matched PET audio
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audio/listening
+          base='https://englishpracticetest.net/wp-content/uploads/2021/11'
+          source_tests=(07 08 09 10 11 12 13 14)
+          track_p1=(01 09 17 25 33 41 49 57)
+          track_p3=(03 11 19 27 35 43 51 59)
+          for i in {0..7}; do
+            test_no=$((i+1))
+            src=${source_tests[$i]}
+            p1=${track_p1[$i]}
+            p3=${track_p3[$i]}
+            curl --fail --location --retry 4 --retry-delay 2 \
+              "$base/pet-practice-listening-test-${src}-part-1.mp3" \
+              -o "audio/listening/Track ${p1} TEST ${test_no} Part 1.mp3"
+            curl --fail --location --retry 4 --retry-delay 2 \
+              "$base/pet-practice-listening-test-${src}-part-3.mp3" \
+              -o "audio/listening/Track ${p3} TEST ${test_no} Part 3.mp3"
+          done
+          test "$(find audio/listening -type f -name '*.mp3' | wc -l)" -eq 16
+          find audio/listening -type f -name '*.mp3' -size +100k | wc -l | grep -qx '16'
+      - name: Commit audio into repository
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add audio/listening
+          if git diff --cached --quiet; then
+            echo 'Audio already synchronized.'
+            exit 0
+          fi
+          git commit -m 'Add direct listening audio tracks [skip ci]'
+          git push
