@@ -1,0 +1,32 @@
+/* Global readability pass: 18px minimum across the website. */
+html,body{font-size:18px!important}
+body *{font-size:18px!important}
+button,input,textarea,select,option{font-size:18px!important}
+input::placeholder,textarea::placeholder{font-size:18px!important}
+
+/* Preserve visual hierarchy for headings that were intentionally larger. */
+.brand h1{font-size:25px!important}
+.hero h2{font-size:clamp(35px,5.5vw,58px)!important}
+.section-head h3{font-size:30px!important}
+.topic-head h4{font-size:27px!important}
+.review-passage h4{font-size:20px!important}
+.passage h5{font-size:23px!important}
+.theorybox h5{font-size:20px!important}
+.result strong{font-size:26px!important}
+
+/* Keep Test 1 / Test 2 at the previously requested 24px minimum. */
+#testsPage,#testsPage *{font-size:24px!important}
+#testsPage .section-head h3{font-size:34px!important}
+#testsPage .passage h5{font-size:28px!important}
+#testsPage .result strong{font-size:30px!important}
+
+@media(max-width:650px){
+  html,body{font-size:18px!important}
+  body *{font-size:18px!important}
+  .brand h1{font-size:25px!important}
+  .hero h2{font-size:35px!important}
+  .section-head h3{font-size:28px!important}
+  .topic-head h4{font-size:25px!important}
+  #testsPage,#testsPage *{font-size:24px!important}
+  #testsPage .section-head h3{font-size:32px!important}
+}
