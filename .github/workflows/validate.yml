@@ -20,6 +20,8 @@ jobs:
           node --check review-listening.js
           node --check explanation-runtime.js
           node --check listening-direct.js
+          node --check listening-images-runtime.js
+          for f in listening-images-test*.js; do node --check "$f"; done
           for f in vg-*.js reading-*.js vg-explanations-*.js; do node --check "$f"; done
       - name: Verify review source data and explanations
         run: |
@@ -37,7 +39,18 @@ jobs:
           if(LISTENING_REVIEW.length!==8 || LISTENING_REVIEW.some(x=>x.part1.length!==7 || x.part3.length!==6)) throw new Error('Listening source count mismatch');
           if(Object.keys(VG_EXPLANATIONS||{}).length!==200) throw new Error(`Expected 200 individual Grammar/Vocabulary explanations, got ${Object.keys(VG_EXPLANATIONS||{}).length}`);
           for(const q of VG_REVIEW.mcq){if(!VG_EXPLANATIONS[String(q.id)]) throw new Error(`Missing explanation for Grammar/Vocabulary question ${q.id}`);}
-          console.log('Source and explanation counts OK:',VG_REVIEW.mcq.length,Object.keys(VG_EXPLANATIONS).length,VG_REVIEW.cloze.length,READING_REVIEW.length,LISTENING_REVIEW.length);
+          NODE
+      - name: Verify Listening Part 1 real images
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          global.window=global;
+          for(let i=1;i<=8;i++) vm.runInThisContext(fs.readFileSync(`listening-images-test${i}.js`,'utf8'));
+          if(!LISTENING_IMAGE_SPRITES || Object.keys(LISTENING_IMAGE_SPRITES).length!==8) throw new Error('Expected 8 Listening image sprite sets');
+          for(let i=1;i<=8;i++){
+            const s=LISTENING_IMAGE_SPRITES[i];
+            if(!s?.src?.startsWith('data:image/png;base64,') || s.cols!==3 || s.rows!==7) throw new Error(`Invalid Listening image sprite Test ${i}`);
+          }
           NODE
       - name: Verify direct listening audio
         shell: bash
@@ -68,6 +81,7 @@ jobs:
           test -s review-app.js
           test -s explanation-runtime.js
           test -s listening-direct.js
+          test -s listening-images-runtime.js
           test -s vg-explanations-1.js
           test -s vg-explanations-2.js
           test -s vg-explanations-3.js
